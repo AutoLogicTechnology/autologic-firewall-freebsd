@@ -5,4 +5,4 @@ galaxy_info:
   company: Autologic Technology Ltd
   license: GPLv3
   min_ansible_version: 1.8
-  dependencies: []
+dependencies: []
