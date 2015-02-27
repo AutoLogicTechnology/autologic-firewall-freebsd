@@ -19,7 +19,9 @@
 - name: Load the PF kernel module
   command: "/sbin/kldload pf"
   tags: autologic_firewall_task_load_kernel_module
+  ignore_errors: true
 
 - name: Enable PF
   command: "/sbin/pfctl -e"
   tags: autologic_firewall_task_enable_pf 
+  ignore_errors: true
