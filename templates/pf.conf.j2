@@ -2,15 +2,15 @@
 {{action}} {{direction}} proto {{proto}} from {{from}} to {{to}} ports { {{ports|join(',')}} }
 {%- endmacro %}
 
-{% macro filter_from_table_to(action,direction,proto,ports,from_table,to) -}
+{% macro filter_from_table_to(action,direction,proto,ports,from_table,to) -%}
 {{action}} {{direction}} proto {{proto}} from <{{from_table}}> to {{to}} ports { {{ports|join(',')}} }
 {%- endmacro %}
 
-{% macro filter_from_to_table(action,direction,proto,ports,from,to_table) -}
+{% macro filter_from_to_table(action,direction,proto,ports,from,to_table) -%}
 {{action}} {{direction}} proto {{proto}} from {{from}} to <{{to_table}}> ports { {{ports|join(',')}} }
 {%- endmacro %}
 
-{% macro filter_from_table_to_table(action,direction,proto,ports,from_table,to_table) -}
+{% macro filter_from_table_to_table(action,direction,proto,ports,from_table,to_table) -%}
 {{action}} {{direction}} proto {{proto}} from <{{from_table}}> to <{{to_table}}> ports { {{ports|join(',')}} }
 {%- endmacro %}
 
