@@ -28,7 +28,7 @@ table <{{table.name}}> {{table.attributes|join(' ')}} { {{table.entries|join(','
 {% endfor %}
 
 # Managed filters
-{%- for service in autologic_firewall_filters -%}
+{% for service in autologic_firewall_filters %}
 
 {%- if service.from is defined and service.to is defined -%}
 {{ filter_from_table_to_table(service.action, service.direction, service.protocol, service.ports, service.from, service.to) }}
@@ -46,4 +46,4 @@ table <{{table.name}}> {{table.attributes|join(' ')}} { {{table.entries|join(','
 {{ filter_from_table_to(service.action, service.direction, service.protocol, service.ports, service.from, 'any') }}
 {%- endif -%}
 
-{%- endfor -%}
+{% endfor %}
