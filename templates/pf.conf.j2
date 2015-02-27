@@ -30,19 +30,19 @@ table <{{table.name}}> {{table.attributes|join(' ')}} { {{table.entries|join(','
 # Managed filters
 {% for service in autologic_firewall_filters %}
 
-{% if defined(service.from) and defined(service.to) %}
+{% if service.from is defined and service.to is defined %}
 {{ filter_from_table_to_table(service.action, service.direction, service.protocol, service.ports, service.from, service.to) }}
 {% endif %}
 
-{% if not defined(service.from) and not defined(service.to) %}
+{% if not service.from is defined and not service.to is defined %}
 {{ filter_from_to(service.action, service.direction, service.protocol, service.ports, 'any', 'any') }}
 {% endif %}
 
-{% if not defined(service.from) and defined(service.to) %}
+{% if not service.from is defined and service.to is defined %}
 {{ filter_from_to_table(service.action, service.direction, service.protocol, service.ports, 'any', service.to) }}
 {% endif %}
 
-{% if defined(service.from) and not defined(service.to) %}
+{% if service.from is defined and not service.to is defined %}
 {{ filter_from_table_to(service.action, service.direction, service.protocol, service.ports, service.from, 'any') }}
 {% endif %}
 
