@@ -1,3 +1,19 @@
+{% macro filter_from_to(action,direction,proto,ports,from,to) -%}
+{{action}} {{direction}} proto {{proto}} from {{from}} to {{to}} ports { {{ports|join(',')}} }
+{%- endmacro %}
+
+{% macro filter_from_table_to(action,direction,proto,ports,from_table,to) -}
+{{action}} {{direction}} proto {{proto}} from <{{from_table}}> to {{to}} ports { {{ports|join(',')}} }
+{%- endmacro %}
+
+{% macro filter_from_to_table(action,direction,proto,ports,from,to_table) -}
+{{action}} {{direction}} proto {{proto}} from {{from}} to <{{to_table}}> ports { {{ports|join(',')}} }
+{%- endmacro %}
+
+{% macro filter_from_table_to_table(action,direction,proto,ports,from_table,to_table) -}
+{{action}} {{direction}} proto {{proto}} from <{{from_table}}> to <{{to_table}}> ports { {{ports|join(',')}} }
+{%- endmacro %}
+
 #
 # This file is managed by Ansible.
 #
@@ -11,12 +27,23 @@
 table <{{table.name}}> {{table.attributes|join(' ')}} { {{table.entries|join(',')}} }
 {% endfor %}
 
-# Managed TCP services
-{% for service in autologic_firewall_tcp_services %}
-{{service.action}} {{service.direction}} proto tcp from {{service.from}} to {{service.to}} ports { {{service.ports|join(',')}} }
-{% endfor %}
+# Managed filters
+{% for service in autologic_firewall_filters %}
 
-# Managed UDP services
-{% for service in autologic_firewall_udp_services %}
-{{service.action}} {{service.direction}} proto udp from {{service.from}} to {{service.to}} ports { {{service.ports|join(',')}} }
+{% if defined(service.from) and defined(service.to) %}
+{{ filter_from_table_to_table(service.action, service.direction, service.protocol, service.ports, service.from, service.to) }}
+{% endif %}
+
+{% if not define(service.from) and not define(service.to) %}
+{{ filter_from_to(service.action, service.direction, service.protocol, service.ports, 'any', 'any') }}
+{% endif %}
+
+{% if not defined(service.from) and defined(service.to) %}
+{{ filter_from_to_table(service.action, service.direction, service.protocol, service.ports, 'any', service.to) }}
+{% endif %}
+
+{% if defined(service.from) and not defined(service.to) %}
+{{ filter_from_table_to(service.action, service.direction, service.protocol, service.ports, service.from, 'any') }}
+{% endif %}
+
 {% endfor %}

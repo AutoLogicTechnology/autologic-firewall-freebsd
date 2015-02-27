@@ -10,13 +10,14 @@ autologic_firewall_tables:
     entries:
       - 'any'
 
-autologic_firewall_tcp_services:
+autologic_firewall_filters:
   - name: 'ssh'
-    ports:
-      - 'ssh'
     action: 'pass'
     direction: 'in'
+    protocol: 'tcp'
     from: 'ssh_in'
     to: 'self'
+    ports:
+      - 'ssh'
 
 autologic_firewall_udp_services: []
