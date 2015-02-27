@@ -16,7 +16,6 @@ autologic_firewall_filters:
     direction: 'in'
     protocol: 'tcp'
     from: 'ssh_in'
-    to: 'self'
     ports:
       - 'ssh'
 
