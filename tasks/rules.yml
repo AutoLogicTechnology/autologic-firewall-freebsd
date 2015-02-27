@@ -1,0 +1,7 @@
+---
+
+- name: Create the PF configuration file with our rules
+  tamplate:
+    src: "pf.conf.j2"
+    dest: "/etc/pf.conf"
+  tags: autologic_firewall_task_create_configuration
