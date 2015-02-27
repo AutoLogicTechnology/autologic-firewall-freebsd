@@ -1,0 +1,9 @@
+---
+
+- include: enable.yml
+  when: ansible_os_family == "FreeBSD" and autologic_firewall_manage_pf
+  tags: autologic_firewall_play_enable
+
+- include: rules.yml
+  when: ansible_os_family == "FreeBSD" and autologic_firewall_manage_rules
+  tags: autologic_firewall_play_rules

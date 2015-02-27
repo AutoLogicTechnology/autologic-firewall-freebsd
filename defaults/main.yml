@@ -1,0 +1,35 @@
+---
+
+autologic_firewall_manage_pf: true
+autologic_firewall_manage_rules: true
+
+autologic_firewall_tables:
+  - name: 'ssh_in'
+    attributes:
+      - 'persist'
+      - 'counters'
+    entries:
+      - '127.0.0.1'
+
+autologic_firewall_tcp_services:
+  - name: 'ssh'
+    ports:
+      - '22'
+    action: 'pass'
+    from: 'ssh_in'
+    to: 'self'
+
+  - name: 'apache'
+    ports:
+      - 'http'
+    action: 'block'
+    from: 'any'
+    to: 'self'
+
+autologic_firewall_udp_services:
+  - name: 'djbdns'
+    ports:
+      - '53'
+    action: 'pass'
+    from: 'any'
+    to: 'self'

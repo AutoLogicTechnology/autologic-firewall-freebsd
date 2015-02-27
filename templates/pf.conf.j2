@@ -1,0 +1,12 @@
+#
+# This file is managed by Ansible.
+#
+# Please see the Autologic FreeBSD Firewall Role
+# for further details on how this file is managed:
+# http://autologic.cm/roles
+#
+
+# Managed tables
+{% for table in autologic_firewall_tables %}
+table <{{table.name}}> {{table.attributes|join(' ')}} { {{table.entries|join(',')}} }
+{% endfor %}

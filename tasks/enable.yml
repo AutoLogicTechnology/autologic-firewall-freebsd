@@ -1,0 +1,25 @@
+---
+
+- name: Enable the PF service
+  lineinfile:
+    dest: "/etc/rc.conf"
+    regexp: '^pf_enable="YES"'
+    line: 'pf_enable="YES"'
+    state: "present"
+  tags: autologic_firewall_task_rc_enable_pf
+
+- name: Enable the PFLog service
+  lineinfile:
+    dest: "/etc/rc.conf"
+    regexp: '^pflog_enable="YES"'
+    line: 'pflog_enable="YES"'
+    state: "present"
+  tags: autologic_firewall_task_rc_enable_pflog
+
+- name: Load the PF kernel module
+  command: "/sbin/kldload pf"
+  tags: autologic_firewall_task_load_kernel_module
+
+- name: Enable PF
+  command: "/sbin/pfctl -e"
+  tags: autologic_firewall_task_enable_pf 
