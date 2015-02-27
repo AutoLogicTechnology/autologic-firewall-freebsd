@@ -34,7 +34,7 @@ table <{{table.name}}> {{table.attributes|join(' ')}} { {{table.entries|join(','
 {{ filter_from_table_to_table(service.action, service.direction, service.protocol, service.ports, service.from, service.to) }}
 {% endif %}
 
-{% if not define(service.from) and not define(service.to) %}
+{% if not defined(service.from) and not defined(service.to) %}
 {{ filter_from_to(service.action, service.direction, service.protocol, service.ports, 'any', 'any') }}
 {% endif %}
 
