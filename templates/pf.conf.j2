@@ -10,3 +10,13 @@
 {% for table in autologic_firewall_tables %}
 table <{{table.name}}> {{table.attributes|join(' ')}} { {{table.entries|join(',')}} }
 {% endfor %}
+
+# Managed TCP services
+{% for service in autologic_firewall_tcp_services %}
+{{service.action}} {{service.direction}} proto tcp from {{service.from}} to {{service.to}} ports { {{service.ports|join(',')}} }
+{% endfor %}
+
+# Managed UDP services
+{% for service in autologic_firewall_udp_services %}
+{{service.action}} {{service.direction}} proto udp from {{service.from}} to {{service.to}} ports { {{service.ports|join(',')}} }
+{% endfor %}

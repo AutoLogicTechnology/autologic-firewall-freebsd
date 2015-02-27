@@ -15,6 +15,7 @@ autologic_firewall_tcp_services:
     ports:
       - 'ssh'
     action: 'pass'
+    direction: 'in'
     from: 'ssh_in'
     to: 'self'
 

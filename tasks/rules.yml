@@ -5,3 +5,7 @@
     src: "pf.conf.j2"
     dest: "/etc/pf.conf"
   tags: autologic_firewall_task_create_configuration
+
+- name: Load the new rulesets
+  command: "/sbin/pfctl -f /etc/pf.conf"
+  tags: autologic_firewall_task_load_rulesets
